@@ -1,12 +1,6 @@
-import React from "react";
 import css from "./ImageCard.module.css";
 
-interface ImageCardProps {
-  urls: {
-    small: string;
-    // Інші необхідні поля для посилань на зображення можна додати тут
-  };
-  description: string;
+interface ImageCardProps extends Photo {
   onClick: () => void;
 }
 
