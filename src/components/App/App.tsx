@@ -13,13 +13,13 @@ import { Toaster } from "react-hot-toast";
 Modal.setAppElement("#root");
 
 const App = () => {
-  const [photos, setPhotos] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [photos, setPhotos] = useState<any[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!query.length) return;
@@ -27,10 +27,11 @@ const App = () => {
       try {
         setIsLoading(true);
         const data = await requestPhotosByQuery(query, page);
+        console.log("data: ", data);
         if (page === 1) {
           setPhotos(data.results);
         } else {
-          setPhotos((prevPhotos) => [...prevPhotos, ...data.results]);
+          setPhotos((prevPhotos: any) => [...prevPhotos, ...data.results]);
         }
       } catch (error) {
         setIsError(true);
@@ -41,7 +42,7 @@ const App = () => {
     fetchPhotosByQuery();
   }, [query, page]);
 
-  const onsearchQuery = (searchTerm) => {
+  const onsearchQuery = (searchTerm: string) => {
     setQuery(searchTerm);
     setPage(1);
   };
@@ -49,7 +50,7 @@ const App = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const openModal = (image) => {
+  const openModal = (image: any) => {
     setSelectedImage(image.urls.regular);
     setIsModalOpen(true);
   };
@@ -68,7 +69,6 @@ const App = () => {
         toastOptions={{
           duration: 3000,
           position: "top-center",
-          reverseOrder: false,
           style: {
             background: "red",
             color: "#fff",
