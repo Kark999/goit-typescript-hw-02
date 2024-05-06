@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 interface Params {
   query: string;
@@ -18,18 +18,16 @@ export const params: Params = {
   per_page: 12,
 };
 
-// export const requestPhotos = async () => {
-//   const { data } = await axios.get(params.url, { params });
-//   return data;
-// };
-
-export const requestPhotosByQuery: (
+export const requestPhotosByQuery = async (
   query: string,
   page: number
-) => Promise<any> = async (query = "", page) => {
+): Promise<Photo[]> => {
   const updatedParams = { ...params, query, page };
-  const { data } = await axios.get(updatedParams.url, {
-    params: updatedParams,
-  });
-  return data;
+  const response: AxiosResponse<{ results: Photo[] }> = await axios.get(
+    updatedParams.url,
+    {
+      params: updatedParams,
+    }
+  );
+  return response.data.results;
 };

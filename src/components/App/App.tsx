@@ -12,8 +12,8 @@ import { Toaster } from "react-hot-toast";
 
 Modal.setAppElement("#root");
 
-const App = () => {
-  const [photos, setPhotos] = useState<any[] | null>(null);
+const App: React.FC = () => {
+  const [photos, setPhotos] = useState<Photo[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
@@ -29,9 +29,13 @@ const App = () => {
         const data = await requestPhotosByQuery(query, page);
         console.log("data: ", data);
         if (page === 1) {
-          setPhotos(data.results);
+          setPhotos(photos);
         } else {
-          setPhotos((prevPhotos: any) => [...prevPhotos, ...data.results]);
+          setPhotos((prevPhotos: Photo[] | null) =>
+            prevPhotos
+              ? [...prevPhotos, ...(Array.isArray(photos) ? photos : [])]
+              : [...(Array.isArray(photos) ? photos : [])]
+          );
         }
       } catch (error) {
         setIsError(true);
