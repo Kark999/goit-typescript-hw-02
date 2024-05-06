@@ -1,7 +1,17 @@
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
 
-const ImageModal = ({ isOpen, onRequestClose, selectedImage }) => {
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  selectedImage: string | null;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({
+  isOpen,
+  onRequestClose,
+  selectedImage,
+}) => {
   return (
     <Modal
       className={css.modal}
@@ -9,7 +19,7 @@ const ImageModal = ({ isOpen, onRequestClose, selectedImage }) => {
       onRequestClose={onRequestClose}
       contentLabel="Selected Image"
     >
-      <img src={selectedImage} alt="Selected" />
+      {selectedImage !== null && <img src={selectedImage} alt="Selected" />}
     </Modal>
   );
 };
