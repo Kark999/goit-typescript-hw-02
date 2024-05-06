@@ -1,6 +1,15 @@
 import css from "./ImageCard.module.css";
 
-interface ImageCardProps extends Photo {
+interface ImageCardProps {
+  urls: {
+    small: string;
+    regular: string;
+    thumb: string;
+    small_s3: string;
+    raw: string;
+    full: string;
+  };
+  description: string;
   onClick: () => void;
 }
 

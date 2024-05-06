@@ -1,19 +1,6 @@
 import ImageCard from "../ImageCard/ImageCard";
 import css from "./ImageGallery.module.css";
 
-interface Photo {
-  id: string;
-  urls: {
-    small: string;
-    regular: string;
-    thumb: string;
-    small_s3: string;
-    raw: string;
-    full: string;
-  };
-  description: string;
-}
-
 interface ImageGalleryProps {
   photos: Photo[] | null;
   onImageClick: (photo: Photo) => void;
@@ -26,13 +13,13 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
     <div>
       <ul className={css.gallery}>
         {Array.isArray(photos) &&
-          photos.map(({ id, urls, description }) => {
+          photos.map((photo: Photo) => {
             return (
-              <li key={id}>
+              <li key={photo.id}>
                 <ImageCard
-                  urls={urls}
-                  description={description}
-                  onClick={() => onImageClick({ id, urls, description })}
+                  urls={photo.urls}
+                  description={photo.description}
+                  onClick={() => onImageClick(photo)}
                 />
               </li>
             );
