@@ -78,7 +78,7 @@ const App = () => {
         reverseOrder={false}
       />
       <SearchBar onsearchQuery={onsearchQuery} />
-      {isLoading && <Loader />}
+      {isLoading && <Loader visible={isLoading} />}
       {isError && <ErrorMessage />}
       {photos && <ImageGallery photos={photos} onImageClick={openModal} />}
       {photos && <LoadMoreBtn onLoadMore={onLoadMore} />}

@@ -1,18 +1,35 @@
+import React from "react";
 import { ProgressBar } from "react-loader-spinner";
-// import css from "./Loader.module.css";
 
-const Loader = () => {
+interface LoaderProps {
+  visible?: boolean;
+  height?: number | string;
+  width?: number | string;
+  ariaLabel?: string;
+  wrapperStyle?: React.CSSProperties;
+  wrapperClass?: string;
+}
+
+const Loader: React.FC<LoaderProps> = ({
+  visible,
+  height = 80,
+  width = 80,
+  ariaLabel = "progress-bar-loading",
+  wrapperStyle = {},
+  wrapperClass = "",
+}) => {
   return (
     <div>
-      <ProgressBar
-        visible={true}
-        height="80"
-        width="80"
-        color="#4fa94d"
-        ariaLabel="progress-bar-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-      />
+      {visible && (
+        <div style={wrapperStyle} className={wrapperClass}>
+          <ProgressBar
+            visible={true}
+            height={height}
+            width={width}
+            ariaLabel={ariaLabel}
+          />
+        </div>
+      )}
     </div>
   );
 };
