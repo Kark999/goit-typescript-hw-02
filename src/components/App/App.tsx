@@ -29,12 +29,10 @@ const App: React.FC = () => {
         const data = await requestPhotosByQuery(query, page);
         console.log("data: ", data);
         if (page === 1) {
-          setPhotos(photos);
+          setPhotos(data);
         } else {
           setPhotos((prevPhotos: Photo[] | null) =>
-            prevPhotos
-              ? [...prevPhotos, ...(Array.isArray(photos) ? photos : [])]
-              : [...(Array.isArray(photos) ? photos : [])]
+            prevPhotos ? [...prevPhotos, ...data] : data
           );
         }
       } catch (error) {
@@ -51,10 +49,10 @@ const App: React.FC = () => {
     setPage(1);
   };
   const onLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
+    setPage((prevPage: number) => prevPage + 1);
   };
 
-  const openModal = (image: any) => {
+  const openModal = (image: Image) => {
     setSelectedImage(image.urls.regular);
     setIsModalOpen(true);
   };

@@ -10,3 +10,9 @@ interface Photo {
   };
   description: string;
 }
+interface Image {
+  urls: {
+    regular: string;
+  };
+  description: string;
+}
